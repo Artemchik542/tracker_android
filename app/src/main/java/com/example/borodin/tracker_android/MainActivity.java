@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> monthAdapter =
                 new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, arrayList);
 
-        //setListAdapter(monthAdapter);
+        listView.setAdapter(monthAdapter);
     }
     public void AddArrayObject(View view){}//добавление обьекта на главные экран списка(Button Add)
 

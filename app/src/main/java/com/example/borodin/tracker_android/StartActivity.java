@@ -17,7 +17,7 @@ public class StartActivity extends AppCompatActivity {
     private SurfaceHolder surfaceHolder;
 
     public StartActivity(Context context, SurfaceHolder surfaceHolder) {
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.Satellite);
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.sat);
         this.surfaceHolder = surfaceHolder;
 
     }

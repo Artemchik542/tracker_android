@@ -12,9 +12,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 public class MainActivity extends ListActivity {
     //EditText editText;
@@ -26,8 +29,29 @@ public class MainActivity extends ListActivity {
     List<List<Double>> listOfLongitude = new ArrayList<>();//двумерный массив с данными о долготе каждого обьекта
     List<List<Double>> listOfHeight = new ArrayList<>();//двумерный массив с данными о высоте каждого обьекта
 
+public void ReadFile(){
+    try {
+        File file = new File("d:/dataFileGeolocation.txt");//тот ли файл в принципе?
+        Scanner scanner = new Scanner(file);
+        int all = scanner.nextInt();//считываем то сколько всего объектов у нас имеется в файле
+        while (scanner.hasNext()) {
+            for (int i = 0; i < all; i++) {
+                planeNamesArray[i] = scanner.next();//чтение имен объектов
+            }
+            for (int i = 0; i < all; i++) {
+                phoneNumberArray[i] = scanner.next();//чтение номеров телефонов
+            }
 
-    /*MyPlane[] makeArray() { //разделение списка данных на кажный объект по принципу ООП
+            // по аналогии все остальные считывания из файла
+        }
+        scanner.close();
+    } catch (FileNotFoundException e) {
+        Toast.makeText(this, "Что то пошло не так: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+}
+
+
+    MyPlane[] makeArray() { //разделение списка данных на кажный объект по принципу ООП
         MyPlane[] arr = new MyPlane[planeNamesArray.length];
         for (int i = 0; i < arr.length; i++) {
             MyPlane plane = new MyPlane();
@@ -39,7 +63,7 @@ public class MainActivity extends ListActivity {
             arr[i] = plane;
         }
         return arr;
-    }*/
+    }
 
 
     @Override
@@ -59,8 +83,8 @@ public class MainActivity extends ListActivity {
         }
 
 
-   /* @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {// слушатель нажатий
         super.onListItemClick(l, v, position, id);
         String month = (String) getListAdapter().getItem(position);
         Toast.makeText(this, month, Toast.LENGTH_SHORT).show();
@@ -68,14 +92,16 @@ public class MainActivity extends ListActivity {
         intent.putExtra(planeNamesArray[0],listOfLatitude.get(0)[]);//?????!!!
 // по аналогии сделать остальные интенты
         startActivity(intent);
-    }*/
+    }
 
 
     public void AddArrayObject(View view){}//добавление обьекта на главные экран списка(Button Add)
 
     public void RemoveArrayObject(View view){}//удаление обьекта со списка(Button Remove)
 
-    public void GoOnMap(View view){}//переход на экран с картой "MapActivity"
+    public void GoOnMap(View view){
+        //Intent intent = new Intent(this, MapActivity.class);
+    }//переход на экран с картой "MapActivity"
 
-    //Intent intent = new Intent(this, MapActivity.class);
+    public void Synchronize(Double[] doubles){}// синхронизация данных
 }

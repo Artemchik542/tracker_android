@@ -2,6 +2,7 @@ package com.example.borodin.tracker_android;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -64,6 +65,17 @@ public void ReadFile(){
         }
         return arr;
     }
+    private void checkEnableGPS() {
+        String provider = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+        if (!provider.equals("")) {
+            // GPS Enabled
+            tvInfo.setText("GPS доступен: " + provider);
+        }
+        else{
+            tvInfo.setText("GPS выключен");
+        }
+    }
 
 
     @Override
@@ -74,6 +86,8 @@ public void ReadFile(){
         listView = findViewById(R.id.arrayList);
         //editText = (EditText) findViewById(R.id.edittext);
         //makeArray();
+        tvInfo = (TextView) findViewById(R.id.textView1);
+        checkEnableGPS();
         ArrayAdapter<String> planeAdapter =
                 new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, planeNamesArray);
 
@@ -88,7 +102,7 @@ public void ReadFile(){
         super.onListItemClick(l, v, position, id);
         String month = (String) getListAdapter().getItem(position);
         Toast.makeText(this, month, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(MainActivity.this, StartActivity.class);
+        Intent intent = new Intent(MainActivity.this, MapActivity.class);
         intent.putExtra(planeNamesArray[0],listOfLatitude.get(0)[]);//?????!!!
 // по аналогии сделать остальные интенты
         startActivity(intent);

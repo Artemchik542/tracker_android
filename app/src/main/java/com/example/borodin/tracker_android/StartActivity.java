@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceHolder;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 /**
@@ -15,7 +17,7 @@ import android.widget.ImageView;
  */
 
 public class StartActivity extends AppCompatActivity {
-
+Button button;
 
 
     @Override
@@ -24,8 +26,14 @@ public class StartActivity extends AppCompatActivity {
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(R.drawable.sat);
         setContentView(imageView);
+        button = (Button) findViewById(R.id.btn1);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Обработка нажатия
+                Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
-
-    public StartActivity(){}
 
 }

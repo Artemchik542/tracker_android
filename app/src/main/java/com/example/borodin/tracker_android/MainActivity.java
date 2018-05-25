@@ -87,7 +87,7 @@ public List<MyPlane> makeNewList(){
         Toast.makeText(this, month, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, MapActivity.class);
         intent.putExtra(PLANE_NAME,planeNamesArray[0]);
-
+        //intent.putExtra(PLANE_NAME, );
         startActivity(intent);
     }
 

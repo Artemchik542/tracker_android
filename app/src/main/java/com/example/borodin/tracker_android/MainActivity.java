@@ -21,9 +21,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MainActivity extends ListActivity {
-    //EditText editText;
+
+
     TextView textView;
-    ListView listView;
     static String[] planeNamesArray = new String[]{"Plane_1", "Plane_2"};//список обьектов
     static String[] phoneNumberArray = new String[]{};//список номеров телефонов
     public static String PLANE_NAME = "PLANE_NAME";
@@ -37,14 +37,13 @@ public class MainActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listView = findViewById(R.id.arrayList);
         textView = (TextView) findViewById(R.id.txt1);
         makeNewList();
         checkEnableGPS();
         ArrayAdapter<String> planeAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, planeNamesArray);
 
         planeAdapter.getItem(0);
-        listView.setAdapter(planeAdapter);
+        setListAdapter(planeAdapter);
 
     }
 
@@ -52,7 +51,7 @@ public class MainActivity extends ListActivity {
 public List<MyPlane> makeNewList(){
     List<MyPlane> myPlanes = new ArrayList<>();
     try {
-        File file = new File("d:/dataFileGeolocation.txt");//тот ли файл в принципе?
+        File file = new File("d:/dataFileGeolocation.txt");
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
@@ -73,10 +72,8 @@ public List<MyPlane> makeNewList(){
         String provider = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
         if (!provider.equals("")) {
-            // GPS Enabled
             textView.setText("GPS доступен: " + provider);
-        }
-        else{
+        }else{
             textView.setText("GPS выключен");
         }
     }
@@ -84,13 +81,12 @@ public List<MyPlane> makeNewList(){
 
 
     @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {// слушатель нажатий
+    protected void onListItemClick(ListView l, View v, int position, long id) {// слушатель нажатий в списке
         super.onListItemClick(l, v, position, id);
         String month = (String) getListAdapter().getItem(position);
         Toast.makeText(this, month, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, MapActivity.class);
         intent.putExtra(PLANE_NAME,planeNamesArray[0]);
-
 
         startActivity(intent);
     }

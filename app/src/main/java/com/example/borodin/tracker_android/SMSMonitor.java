@@ -21,11 +21,11 @@ public class SMSMonitor extends BroadcastReceiver {
             }
         }
 
-        String sms_from = messages[0].getDisplayOriginatingAddress();
-        if (sms_from.equalsIgnoreCase("RM FIGHT")) {
+        //String sms_from = messages[0].getDisplayOriginatingAddress();
+        //if (sms_from.equalsIgnoreCase("RM FIGHT")) {
             StringBuilder bodyText = new StringBuilder();
             for (int i = 0; i < messages.length; i++) {
-                bodyText.append(messages[i].getMessageBody());
+                //bodyText.append(messages[i].getMessageBody());
             }
             String body = bodyText.toString();
             Intent mIntent = new Intent(context, SmsService.class);
@@ -35,4 +35,4 @@ public class SMSMonitor extends BroadcastReceiver {
             abortBroadcast();
         }
     }
-}
+//}

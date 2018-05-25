@@ -7,6 +7,6 @@ import android.support.v7.app.AppCompatActivity;
  * Created by Borodin on 16.05.2018.
  */
 
-public class MapActivity extends AppCompatActivity{
+public class MapActivity extends FragmentActivity{
 
 }

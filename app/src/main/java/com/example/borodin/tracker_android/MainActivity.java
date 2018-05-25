@@ -22,7 +22,7 @@ import java.util.Scanner;
 
 public class MainActivity extends ListActivity {
     //EditText editText;
-    TextView tvInfo;
+    TextView textView;
     ListView listView;
     static String[] planeNamesArray = new String[]{"Plane_1", "Plane_2"};//список обьектов
     static String[] phoneNumberArray = new String[]{};//список номеров телефонов
@@ -34,17 +34,14 @@ public class MainActivity extends ListActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {//
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //textView = findViewById(R.id.textview);
         listView = findViewById(R.id.arrayList);
-        //editText = (EditText) findViewById(R.id.edittext);
-        readFile();
-        //tvInfo = (TextView) findViewById(R.id.tvInfo);
+        textView = (TextView) findViewById(R.id.txt1);
+        makeNewList();
         checkEnableGPS();
-        ArrayAdapter<String> planeAdapter =
-                new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, planeNamesArray);
+        ArrayAdapter<String> planeAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, planeNamesArray);
 
         planeAdapter.getItem(0);
         listView.setAdapter(planeAdapter);
@@ -52,7 +49,7 @@ public class MainActivity extends ListActivity {
     }
 
 
-public List<MyPlane> readFile(){
+public List<MyPlane> makeNewList(){
     List<MyPlane> myPlanes = new ArrayList<>();
     try {
         File file = new File("d:/dataFileGeolocation.txt");//тот ли файл в принципе?
@@ -77,10 +74,10 @@ public List<MyPlane> readFile(){
                 Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
         if (!provider.equals("")) {
             // GPS Enabled
-            tvInfo.setText("GPS доступен: " + provider);
+            textView.setText("GPS доступен: " + provider);
         }
         else{
-            tvInfo.setText("GPS выключен");
+            textView.setText("GPS выключен");
         }
     }
 

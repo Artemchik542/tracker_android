@@ -17,7 +17,7 @@ import android.widget.ImageView;
  */
 
 public class StartActivity extends AppCompatActivity {
-Button button;
+Button button1, button2;
 
 
     @Override
@@ -25,13 +25,21 @@ Button button;
         super.onCreate(savedInstanceState);
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(R.drawable.sat);
-        setContentView(imageView);
-        button = (Button) findViewById(R.id.btn1);
-        button.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.start_activity);
+        button1 = (Button) findViewById(R.id.btn1);
+        button2 = (Button) findViewById(R.id.btn2);
+        button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Обработка нажатия
                 Intent intent = new Intent(StartActivity.this, MainActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Обработка нажатия
+                onDestroy();
             }
         });
     }

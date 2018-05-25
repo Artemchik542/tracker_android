@@ -22,13 +22,34 @@ import java.util.Scanner;
 
 public class MainActivity extends ListActivity {
     //EditText editText;
-    //TextView textView;
+    TextView tvInfo;
     ListView listView;
     static String[] planeNamesArray = new String[]{"Plane_1", "Plane_2"};//список обьектов
     static String[] phoneNumberArray = new String[]{};//список номеров телефонов
     List<List<Double>> listOfLatitude = new ArrayList<>();//двумерный массив с данными о широте каждого обьекта
     List<List<Double>> listOfLongitude = new ArrayList<>();//двумерный массив с данными о долготе каждого обьекта
     List<List<Double>> listOfHeight = new ArrayList<>();//двумерный массив с данными о высоте каждого обьекта
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {//
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        //textView = findViewById(R.id.textview);
+        listView = findViewById(R.id.arrayList);
+        //editText = (EditText) findViewById(R.id.edittext);
+        makeArray();
+        tvInfo = (TextView) findViewById(R.id.tvInfo);
+        checkEnableGPS();
+        ArrayAdapter<String> planeAdapter =
+                new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, planeNamesArray);
+
+        planeAdapter.getItem(0);
+        listView.setAdapter(planeAdapter);
+
+    }
+
 
 public void ReadFile(){
     try {
@@ -78,24 +99,6 @@ public void ReadFile(){
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {//
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //textView = findViewById(R.id.textview);
-        listView = findViewById(R.id.arrayList);
-        //editText = (EditText) findViewById(R.id.edittext);
-        //makeArray();
-        tvInfo = (TextView) findViewById(R.id.textView1);
-        checkEnableGPS();
-        ArrayAdapter<String> planeAdapter =
-                new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, planeNamesArray);
-
-        planeAdapter.getItem(0);
-        listView.setAdapter(planeAdapter);
-
-        }
-
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {// слушатель нажатий
@@ -113,9 +116,7 @@ public void ReadFile(){
 
     public void RemoveArrayObject(View view){}//удаление обьекта со списка(Button Remove)
 
-    public void GoOnMap(View view){
-        //Intent intent = new Intent(this, MapActivity.class);
-    }//переход на экран с картой "MapActivity"
+
 
     public void Synchronize(Double[] doubles){}// синхронизация данных
 }

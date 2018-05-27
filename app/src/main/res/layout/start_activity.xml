@@ -9,18 +9,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/btn1"
-        android:text="Запуск"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"/>
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn1"
+            android:text="Запуск"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/btn2"
-        android:text="Выход"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"/>
+        <Button
+            android:id="@+id/btn3"
+            android:text="Об авторе"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn2"
+            android:text="Выход"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
 </FrameLayout>

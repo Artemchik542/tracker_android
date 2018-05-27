@@ -11,6 +11,6 @@ public class MyPlane {
     public MyPlane(String name, String phone, GeoLocation geoLocation) {
         this.name = name;
         this.phone = phone;
-        this.geoLocations.add(geoLocation) ;
+        this.geoLocations.add(geoLocation);
     }
 }

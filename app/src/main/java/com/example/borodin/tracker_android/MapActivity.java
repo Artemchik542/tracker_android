@@ -10,6 +10,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import static com.example.borodin.tracker_android.MainActivity.PLANE_NAME;
+
 /**
  * Created by Borodin on 16.05.2018.
  */
@@ -17,6 +19,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private String line1  = new String();
+    //private double lat = new ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        line1 = getIntent().getStringExtra(PLANE_NAME);
+
+
     }
 
 
@@ -47,4 +55,5 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
+
 }

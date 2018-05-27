@@ -12,6 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity android:name="com.example.borodin.tracker_android.MapActivity"/>
         <activity android:name=".MainActivity"/>
         <activity android:name="com.example.borodin.tracker_android.StartActivity">
@@ -21,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver android:name="SMSMonitor">
             <intent-filter android:priority="100">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>

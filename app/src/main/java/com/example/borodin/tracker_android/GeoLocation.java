@@ -1,6 +1,6 @@
 package com.example.borodin.tracker_android;
 
-import java.util.List;
+
 
 public class GeoLocation{
     Double latitude;

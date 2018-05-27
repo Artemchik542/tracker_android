@@ -3,6 +3,7 @@ package com.example.borodin.tracker_android;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -101,8 +102,8 @@ public List<MyPlane> makeNewList(){
         String month = (String) getListAdapter().getItem(position);
         Toast.makeText(this, month, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, MapActivity.class);
-        intent.putExtra(PLANE_NAME, planeNamesArray[position]);//вывести тестовые данные
-        //intent.putExtra(PLANE, planes.get(position));
+        //intent.putExtra(PLANE_NAME, planeNamesArray[position]);//вывести тестовые данные
+        intent.putExtra(PLANE, (Parcelable) planes.get(position));
         //Toast.makeText(this, "Выбранная позиция: ", Toast.LENGTH_LONG).show();
         startActivity(intent);
     }

@@ -39,7 +39,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         line = getIntent().getStringExtra(PLANE_NAME);
 
         planes.add(new MyPlane("Plane_1", "+1312312312", new GeoLocation( Lat, Lot, 234.34)));
-        planes.add(new MyPlane("Plane_2", "+1312312312", new GeoLocation( Lat+5., Lot+5., 234.34)));
 
 
     }
@@ -61,9 +60,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         // Add a marker in Sydney and move the camera
 
         LatLng plane1 = new LatLng(planes.get(0).geoLocations.get(0).latitude, planes.get(0).geoLocations.get(0).longitude);
-        LatLng plane2 = new LatLng(planes.get(1).geoLocations.get(0).latitude, planes.get(1).geoLocations.get(0).longitude);
         mMap.addMarker(new MarkerOptions().position(plane1).title(line));
-        mMap.addMarker(new MarkerOptions().position(plane2).title(line));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(plane1));
     }
 

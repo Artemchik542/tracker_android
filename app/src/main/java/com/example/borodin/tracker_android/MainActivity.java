@@ -28,7 +28,7 @@ public class MainActivity extends ListActivity {
     Button button1, button2;
     TextView textView;
     EditText editText1;
-    static String[] planeNamesArray = new String[]{"Plane_1", "Plane_2"};//список обьектов
+    static String[] planeNamesArray = new String[]{};//список обьектов
     static String[] phoneNumberArray = new String[]{};//список номеров телефонов
     public static String PLANE_NAME = "PLANE_NAME";
     final static String FILE_NAME = "dataFileGeolocation";
@@ -57,11 +57,10 @@ public class MainActivity extends ListActivity {
 
 public List<MyPlane> makeNewList(){
     List<MyPlane> myPlanes = new ArrayList<>();
-
+    File internalStorageDir = getFilesDir();
     try {
 
-        File internalStorageDir = getFilesDir();
-        File file = new File(internalStorageDir,  "dataFileGeolocation.txt");
+        File file = new File(internalStorageDir,  "res/dataFileGeolocation");
         Toast.makeText(this, internalStorageDir.toString(), Toast.LENGTH_LONG).show();
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
@@ -73,10 +72,9 @@ public List<MyPlane> makeNewList(){
         scanner.close();
         return myPlanes;
     } catch (FileNotFoundException e) {
-        Toast.makeText(this, "Что то пошло не так: "+e.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Что то пошло не так: " + e.getMessage(), Toast.LENGTH_LONG).show();
         return myPlanes;
     }
-
 
 }
     private void checkEnableGPS() {

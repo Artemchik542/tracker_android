@@ -28,10 +28,14 @@ public class MainActivity extends ListActivity {
     Button button1, button2;
     TextView textView;
     EditText editText1;
-    static String[] planeNamesArray = new String[]{};//список обьектов
+    List<MyPlane> planes = new ArrayList<>();
+    static String[] planeNamesArray = new String[]{"Plane_1", "Plane_2"};//список обьектов
     static String[] phoneNumberArray = new String[]{};//список номеров телефонов
     public static String PLANE_NAME = "PLANE_NAME";
+    public static String PLANE = "PLANE";
     final static String FILE_NAME = "dataFileGeolocation";
+    static double Lat = 56.43433434;
+    static double Lot = 82.34343434;
     //List<List<Double>> listOfLatitude = new ArrayList<>();//двумерный массив с данными о широте каждого обьекта
     //List<List<Double>> listOfLongitude = new ArrayList<>();//двумерный массив с данными о долготе каждого обьекта
     //List<List<Double>> listOfHeight = new ArrayList<>();//двумерный массив с данными о высоте каждого обьекта
@@ -52,6 +56,8 @@ public class MainActivity extends ListActivity {
 
         //planeAdapter.getItem(0);
         setListAdapter(planeAdapter);
+        planes.add(new MyPlane("Plane_1", "+1312312312", new GeoLocation( Lat, Lot, 234.34)));
+        planes.add(new MyPlane("Plane_2", "+1312312312", new GeoLocation( Lat, Lot, 234.34)));
     }
 
 
@@ -60,7 +66,7 @@ public List<MyPlane> makeNewList(){
     File internalStorageDir = getFilesDir();
     try {
 
-        File file = new File(internalStorageDir,  "res/dataFileGeolocation");
+        File file = new File(  "res/dataFileGeolocation");
         Toast.makeText(this, internalStorageDir.toString(), Toast.LENGTH_LONG).show();
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
@@ -96,7 +102,7 @@ public List<MyPlane> makeNewList(){
         Toast.makeText(this, month, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, MapActivity.class);
         intent.putExtra(PLANE_NAME, planeNamesArray[position]);//вывести тестовые данные
-        //intent.putExtra(PLANE_NAME, );
+        //intent.putExtra(PLANE, planes.get(position));
         //Toast.makeText(this, "Выбранная позиция: ", Toast.LENGTH_LONG).show();
         startActivity(intent);
     }

@@ -12,8 +12,7 @@ public class SMSMonitor extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent != null && intent.getAction() != null &&
-                ACTION.compareToIgnoreCase(intent.getAction()) == 0) {
+        if (intent != null && intent.getAction() != null && ACTION.compareToIgnoreCase(intent.getAction()) == 0) {
             Object[] pduArray = (Object[]) intent.getExtras().get("pdus");
             SmsMessage[] messages = new SmsMessage[pduArray.length];
             for (int i = 0; i < pduArray.length; i++) {

@@ -10,6 +10,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.example.borodin.tracker_android.MainActivity.PLANE_NAME;
 
 /**
@@ -19,8 +22,10 @@ import static com.example.borodin.tracker_android.MainActivity.PLANE_NAME;
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private String line1  = new String();
-    //private double lat = new ;
+    private String line  = new String();
+    static double Lat = 56.43433434;
+    static double Lot = 82.34343434;
+    List<MyPlane> planes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +36,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        line1 = getIntent().getStringExtra(PLANE_NAME);
+        line = getIntent().getStringExtra(PLANE_NAME);
+
+        planes.add(new MyPlane("Plane_1", "+1312312312", new GeoLocation( Lat, Lot, 234.34)));
+        planes.add(new MyPlane("Plane_2", "+1312312312", new GeoLocation( Lat+5., Lot+5., 234.34)));
 
 
     }
@@ -52,9 +60,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         // Add a marker in Sydney and move the camera
 
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title(line1));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng plane1 = new LatLng(planes.get(0).geoLocations.get(0).latitude, planes.get(0).geoLocations.get(0).longitude);
+        LatLng plane2 = new LatLng(planes.get(1).geoLocations.get(0).latitude, planes.get(1).geoLocations.get(0).longitude);
+        mMap.addMarker(new MarkerOptions().position(plane1).title(line));
+        mMap.addMarker(new MarkerOptions().position(plane2).title(line));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(plane1));
     }
 
 }

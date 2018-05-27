@@ -6,7 +6,7 @@ import java.util.List;
 public class MyPlane {
     String name;
     String phone;
-    List<GeoLocation> geoLocations = new ArrayList<>();
+    public List<GeoLocation> geoLocations = new ArrayList<>();
 
     public MyPlane(String name, String phone, GeoLocation geoLocation) {
         this.name = name;

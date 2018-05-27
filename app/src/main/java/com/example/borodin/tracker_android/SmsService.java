@@ -15,7 +15,7 @@ public class SmsService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-
+//x
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String sms_body = intent.getExtras().getString("sms_body");

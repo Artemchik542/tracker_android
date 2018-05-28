@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 public class SmsService extends Service {
+    //public static final String WHERE_MY_CAT_ACTION = "com.example.borodin.tracker_android.action.CAT";
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -18,22 +19,19 @@ public class SmsService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        String sms_body = intent.getExtras().getString("sms_body");
-        showNotification(sms_body);
+        String INCOMPARCE = "sms_body";
+        String number = intent.getExtras().getString(INCOMPARCE);
+        String sms_body = intent.getExtras().getString(INCOMPARCE);
+
+        /*Intent intent1 = new Intent();
+        intent1.setAction(WHERE_MY_CAT_ACTION);
+        intent1.putExtra("com.example.borodin.tracker_android.broadcast.Message",number);
+        intent1.putExtra("com.example.borodin.tracker_android.broadcast.Message",sms_body);
+        intent1.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+        sendBroadcast(intent1);*/
+
         return START_STICKY;
     }
 
-    private void showNotification(String text) {
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), 0);
-        Context context = getApplicationContext();
-        Notification.Builder builder = new Notification.Builder(context)
-                .setContentTitle("Rugball")
-                .setContentText(text)
-                .setContentIntent(contentIntent)
-                //.setSmallIcon(R.drawable.ic_launcher)
-                .setAutoCancel(true);
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification notification = builder.getNotification();
-        //notificationManager.notify(R.drawable.ic_launcher, notification);
-    }
+
 }

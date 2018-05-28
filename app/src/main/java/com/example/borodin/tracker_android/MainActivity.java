@@ -111,5 +111,9 @@ public List<MyPlane> makeNewList(){
 
 
 
-    public void Synchronize(Double[] doubles){}// синхронизация данных
+    public void Synchronize(Double[] doubles){
+        Intent intent = new Intent();
+        intent.getStringExtra("com.example.borodin.tracker_android.broadcast.Message");//для приема данных из сервиса смc
+
+    }// синхронизация данных
 }

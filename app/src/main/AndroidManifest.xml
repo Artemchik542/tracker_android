@@ -22,7 +22,7 @@
         <activity android:name="com.example.borodin.tracker_android.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="com.example.borodin.tracker_android.action.CAT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

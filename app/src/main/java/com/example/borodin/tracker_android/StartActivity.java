@@ -49,7 +49,8 @@ Button button1, button2, button3;
         button3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Обработка нажатия
-                //Intent intent = new Intent(StartActivity.this,);
+                Intent intent = new Intent(StartActivity.this,AboutActivity.class);
+                startActivity(intent);
             }
         });
     }

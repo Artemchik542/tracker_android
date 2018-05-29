@@ -31,7 +31,7 @@ public class MainActivity extends ListActivity {
     Button button1, button2;
     TextView textView;
     EditText editText1, editText2;
-    List<MyPlane> planes = new ArrayList<>();
+    public static List<MyPlane> planes = new ArrayList<>();
     static String[] planeNamesArray = new String[]{"Plane_1", "Plane_2"};//список обьектов потом убрать
     public static String PLANE_NAME = "PLANE_NAME";
     public static String PLANE = "PLANE";
@@ -64,7 +64,6 @@ public class MainActivity extends ListActivity {
 
 
 public List<MyPlane> makeNewList(){
-    List<MyPlane> myPlanes = new ArrayList<>();
     File internalStorageDir = getFilesDir();//проблема записи в файл!
     try {
 
@@ -75,13 +74,13 @@ public List<MyPlane> makeNewList(){
             String line = scanner.nextLine();
             String[] arr = line.split(" ");
             MyPlane plane = new MyPlane(arr[0], arr[1], new GeoLocation( Double.valueOf(arr[2]), Double.valueOf(arr[3]), Double.valueOf(arr[4])));
-            myPlanes.add(plane);
+            planes.add(plane);
         }
         scanner.close();
-        return myPlanes;
+        return planes;
     } catch (FileNotFoundException e) {
         Toast.makeText(this, "Что то пошло не так: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        return myPlanes;
+        return planes;
     }
 
 }
@@ -114,14 +113,14 @@ public List<MyPlane> makeNewList(){
     protected BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            List<MyPlane> myPlane = new ArrayList<>();
 
             String number = new String(intent.getStringExtra(SmsService.INFO));
             String body = new String(intent.getStringExtra(SmsService.INFO));
             String[] arr1 = body.split(" ");
-            for (int i = 0; i <myPlane.size(); i++) {
-                if (number.equals(myPlane.get(i).phone)){
-                    myPlane.get(i).geoLocations(new GeoLocation( Double.valueOf(arr1[0]), Double.valueOf(arr1[1]), Double.valueOf(arr1[2]));// где-то ошибка?
+
+            for (int i = 0; i <planes.size(); i++) {
+                if (number.equals(planes.get(i).phone)){
+                    planes.get(i).geoLocations.add(new GeoLocation( Double.valueOf(arr1[0]), Double.valueOf(arr1[1]), Double.valueOf(arr1[2])));
                     break;
                 }
             }
@@ -135,7 +134,9 @@ public List<MyPlane> makeNewList(){
         planes.add(new MyPlane(editText1.getText().toString(), editText2.getText().toString(), new GeoLocation( Double.valueOf(0), Double.valueOf(0), Double.valueOf(0))));//добавить самолет в список
     }//добавление обьекта на главные экран списка(Button Add)
 
-    public void RemoveArrayObject(View view){}//удаление обьекта со списка(Button Remove)
+    public void RemoveArrayObject(View view){
+
+    }//удаление обьекта со списка(Button Remove)
 
 
 

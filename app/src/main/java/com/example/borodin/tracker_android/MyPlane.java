@@ -22,10 +22,6 @@ public class MyPlane {
         return phone;
     }
 
-    public List<GeoLocation> getGeoLocations() {
-        return geoLocations;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -33,8 +29,6 @@ public class MyPlane {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public void setGeoLocations(List<GeoLocation> geoLocations) {
-        this.geoLocations = geoLocations;
-    }
 }
+
+

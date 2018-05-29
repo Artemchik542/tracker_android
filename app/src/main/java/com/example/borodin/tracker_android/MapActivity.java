@@ -22,7 +22,7 @@ import static com.example.borodin.tracker_android.MainActivity.PLANE_NAME;
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private String line  = new String();
+    private int num;
     static double Lat = 56.43433434;
     static double Lot = 82.34343434;
     List<MyPlane> planes = new ArrayList<>();
@@ -37,7 +37,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        line = getIntent().getStringExtra(PLANE_NAME);
+        num = getIntent().getIntExtra(PLANE_NAME, 0);
 
         planes.add(new MyPlane("Plane_1", "+1312312312", new GeoLocation( Lat, Lot, 234.34)));
 

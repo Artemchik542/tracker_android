@@ -5,12 +5,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Parcelable;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,10 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,7 +26,7 @@ public class MainActivity extends ListActivity {
     Button button1, button2;
     TextView textView;
     EditText editText1, editText2;
-    public static List<MyPlane> planes = new ArrayList<>();
+    public static List<MyPlane> PLANES = new ArrayList<>();
     static String[] planeNamesArray = new String[]{"Plane_1", "Plane_2"};//список обьектов потом убрать
     public static String PLANE_NAME = "PLANE_NAME";
     public static String PLANE = "PLANE";
@@ -54,7 +49,8 @@ public class MainActivity extends ListActivity {
         makeNewList();
         checkEnableGPS();
         ArrayAdapter<String> planeAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, planeNamesArray);
-
+        PLANES.add(new MyPlane("Plane_1", "+1312312312", new GeoLocation( 0.0, 0.0, 0.0)));
+        PLANES.add(new MyPlane("Plane_2", "+1312354312", new GeoLocation( 50.0, 50.0, 50.0)));
         //planeAdapter.getItem(0);
         setListAdapter(planeAdapter);
         Intent intent = new Intent(this, SmsService.class);
@@ -74,13 +70,13 @@ public List<MyPlane> makeNewList(){
             String line = scanner.nextLine();
             String[] arr = line.split(" ");
             MyPlane plane = new MyPlane(arr[0], arr[1], new GeoLocation( Double.valueOf(arr[2]), Double.valueOf(arr[3]), Double.valueOf(arr[4])));
-            planes.add(plane);
+            PLANES.add(plane);
         }
         scanner.close();
-        return planes;
+        return PLANES;
     } catch (FileNotFoundException e) {
         Toast.makeText(this, "Что то пошло не так: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        return planes;
+        return PLANES;
     }
 
 }
@@ -103,7 +99,7 @@ public List<MyPlane> makeNewList(){
         Toast.makeText(this, month, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, MapActivity.class);
         intent.putExtra(PLANE_NAME, position);//передаем позицию выбранного обьекта в массиве
-        //intent.putExtra(PLANE, (Parcelable) planes.get(position));
+        //intent.putExtra(PLANE, (Parcelable) PLANES.get(position));
         Toast.makeText(this, "Выбранная позиция: " + position, Toast.LENGTH_LONG).show();
         startActivity(intent);
     }
@@ -118,9 +114,9 @@ public List<MyPlane> makeNewList(){
             String body = new String(intent.getStringExtra(SmsService.INFO));
             String[] arr1 = body.split(" ");
 
-            for (int i = 0; i <planes.size(); i++) {
-                if (number.equals(planes.get(i).phone)){
-                    planes.get(i).geoLocations.add(new GeoLocation( Double.valueOf(arr1[0]), Double.valueOf(arr1[1]), Double.valueOf(arr1[2])));
+            for (int i = 0; i < PLANES.size(); i++) {
+                if (number.equals(PLANES.get(i).phone)){
+                    PLANES.get(i).geoLocations.add(0, new GeoLocation( Double.valueOf(arr1[0]), Double.valueOf(arr1[1]), Double.valueOf(arr1[2])));
                     break;
                 }
             }
@@ -131,7 +127,7 @@ public List<MyPlane> makeNewList(){
 
     public void AddArrayObject(View view){
 
-        planes.add(new MyPlane(editText1.getText().toString(), editText2.getText().toString(), new GeoLocation( Double.valueOf(0), Double.valueOf(0), Double.valueOf(0))));//добавить самолет в список
+        PLANES.add(new MyPlane(editText1.getText().toString(), editText2.getText().toString(), new GeoLocation( Double.valueOf(0), Double.valueOf(0), Double.valueOf(0))));//добавить самолет в список
     }//добавление обьекта на главные экран списка(Button Add)
 
     public void RemoveArrayObject(View view){

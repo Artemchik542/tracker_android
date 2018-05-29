@@ -13,6 +13,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.borodin.tracker_android.MainActivity.PLANE;
+import static com.example.borodin.tracker_android.MainActivity.PLANES;
 import static com.example.borodin.tracker_android.MainActivity.PLANE_NAME;
 
 /**
@@ -25,7 +27,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private int num;
     static double Lat = 56.43433434;
     static double Lot = 82.34343434;
-    List<MyPlane> planes = new ArrayList<>();
+
 
 
     @Override
@@ -39,7 +41,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         num = getIntent().getIntExtra(PLANE_NAME, 0);
 
-        planes.add(new MyPlane("Plane_1", "+1312312312", new GeoLocation( Lat, Lot, 234.34)));
+
 
 
     }
@@ -60,8 +62,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         // Add a marker in Sydney and move the camera
 
-        LatLng plane1 = new LatLng(planes.get(0).geoLocations.get(0).latitude, planes.get(0).geoLocations.get(0).longitude);
-        mMap.addMarker(new MarkerOptions().position(plane1).title(line));
+        LatLng plane1 = new LatLng(PLANES.get(num).geoLocations.get(num).latitude, PLANES.get(num).geoLocations.get(0).longitude);
+        mMap.addMarker(new MarkerOptions().position(plane1).title(PLANES.get(num).name));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(plane1));
     }
 

@@ -27,6 +27,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     static double Lot = 82.34343434;
     List<MyPlane> planes = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

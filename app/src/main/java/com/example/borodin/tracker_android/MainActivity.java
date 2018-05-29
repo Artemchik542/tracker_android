@@ -30,8 +30,8 @@ public class MainActivity extends ListActivity {
 
     Button button1, button2;
     TextView textView;
-    EditText editText1;
-    //List<MyPlane> planes = new ArrayList<>();
+    EditText editText1, editText2;
+    List<MyPlane> planes = new ArrayList<>();
     static String[] planeNamesArray = new String[]{"Plane_1", "Plane_2"};//список обьектов потом убрать
     public static String PLANE_NAME = "PLANE_NAME";
     public static String PLANE = "PLANE";
@@ -50,6 +50,7 @@ public class MainActivity extends ListActivity {
         button1 = (Button) findViewById(R.id.but1);
         button2 = (Button) findViewById(R.id.but2);
         editText1 = (EditText) findViewById(R.id.edt1);
+        editText2 = (EditText) findViewById(R.id.edt2);
         makeNewList();
         checkEnableGPS();
         ArrayAdapter<String> planeAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, planeNamesArray);
@@ -102,9 +103,9 @@ public List<MyPlane> makeNewList(){
         String month = (String) getListAdapter().getItem(position);
         Toast.makeText(this, month, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, MapActivity.class);
-        intent.putExtra(PLANE_NAME, planeNamesArray[position]);//вывести тестовые данные
+        intent.putExtra(PLANE_NAME, position);//передаем позицию выбранного обьекта в массиве
         //intent.putExtra(PLANE, (Parcelable) planes.get(position));
-        //Toast.makeText(this, "Выбранная позиция: ", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Выбранная позиция: " + position, Toast.LENGTH_LONG).show();
         startActivity(intent);
     }
 
@@ -130,8 +131,8 @@ public List<MyPlane> makeNewList(){
 
 
     public void AddArrayObject(View view){
-        List<MyPlane> myPlanes = new ArrayList<>();
-        myPlanes.add()//добавить самолет в список
+
+        planes.add(new MyPlane(editText1.getText().toString(), editText2.getText().toString(), new GeoLocation( Double.valueOf(0), Double.valueOf(0), Double.valueOf(0))));//добавить самолет в список
     }//добавление обьекта на главные экран списка(Button Add)
 
     public void RemoveArrayObject(View view){}//удаление обьекта со списка(Button Remove)

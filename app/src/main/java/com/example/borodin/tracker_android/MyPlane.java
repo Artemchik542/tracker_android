@@ -13,4 +13,28 @@ public class MyPlane {
         this.phone = phone;
         this.geoLocations.add(geoLocation);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public List<GeoLocation> getGeoLocations() {
+        return geoLocations;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setGeoLocations(List<GeoLocation> geoLocations) {
+        this.geoLocations = geoLocations;
+    }
 }

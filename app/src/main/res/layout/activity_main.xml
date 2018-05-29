@@ -31,12 +31,18 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"/>
 </LinearLayout>
+
     <EditText
         android:id="@+id/edt1"
+        android:hint="Введите название"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <EditText
+        android:id="@+id/edt2"
         android:hint="Новый номер телефона"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 
         <ListView
             android:id="@android:id/list"

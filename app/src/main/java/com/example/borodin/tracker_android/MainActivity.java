@@ -1,8 +1,10 @@
 package com.example.borodin.tracker_android;
 
 import android.app.ListActivity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +36,7 @@ public class MainActivity extends ListActivity {
     public static String PLANE_NAME = "PLANE_NAME";
     public static String PLANE = "PLANE";
     final static String FILE_NAME = "dataFileGeolocation";
+    public static final String INFO = "INFO";
 
 
 
@@ -53,13 +56,15 @@ public class MainActivity extends ListActivity {
 
         //planeAdapter.getItem(0);
         setListAdapter(planeAdapter);
-
+        Intent intent = new Intent(this, SmsService.class);
+        registerReceiver(receiver, new IntentFilter(SmsService.CHANNEL));
+        startService(intent);
     }
 
 
 public List<MyPlane> makeNewList(){
     List<MyPlane> myPlanes = new ArrayList<>();
-    File internalStorageDir = getFilesDir();
+    File internalStorageDir = getFilesDir();//проблема записи в файл!
     try {
 
         File file = new File(  "res/dataFileGeolocation");
@@ -105,15 +110,37 @@ public List<MyPlane> makeNewList(){
 
 
 
-    public void AddArrayObject(View view){}//добавление обьекта на главные экран списка(Button Add)
+    protected BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            List<MyPlane> myPlane = new ArrayList<>();
+
+            String number = new String(intent.getStringExtra(SmsService.INFO));
+            String body = new String(intent.getStringExtra(SmsService.INFO));
+            String[] arr1 = body.split(" ");
+            for (int i = 0; i <myPlane.size(); i++) {
+                if (number.equals(myPlane.get(i).phone)){
+                    myPlane.get(i).geoLocations(new GeoLocation( Double.valueOf(arr1[0]), Double.valueOf(arr1[1]), Double.valueOf(arr1[2]));// где-то ошибка?
+                    break;
+                }
+            }
+        }
+    };
+
+
+
+    public void AddArrayObject(View view){
+        List<MyPlane> myPlanes = new ArrayList<>();
+        myPlanes.add()//добавить самолет в список
+    }//добавление обьекта на главные экран списка(Button Add)
 
     public void RemoveArrayObject(View view){}//удаление обьекта со списка(Button Remove)
 
 
 
     public void Synchronize(Double[] doubles){
-        Intent intent = new Intent();
-        intent.getStringExtra("com.example.borodin.tracker_android.broadcast.Message");//для приема данных из сервиса смc
+        //Intent intent = new Intent();
+        //intent.getStringExtra("com.example.borodin.tracker_android.broadcast.Message");//для приема данных из сервиса смc
 
     }// синхронизация данных
 }

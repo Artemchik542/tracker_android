@@ -17,13 +17,17 @@
         android:id="@+id/but1"
         android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="AddArrayObject"
+        tools:ignore="OnClick"/>
     <Button
         android:text="Удалить"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/but2"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:onClick="RemoveArrayObject"
+        tools:ignore="OnClick"/>
 
     <TextView
         android:id="@+id/txt1"

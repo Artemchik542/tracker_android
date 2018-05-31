@@ -26,7 +26,6 @@ import java.util.Scanner;
 
 public class MainActivity extends ListActivity {
 
-    Button button1, button2;
     TextView textView;
     EditText editText1, editText2;
     public static List<MyPlane> PLANES = new ArrayList<>();
@@ -43,24 +42,19 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.txt1);
-        button1 = (Button) findViewById(R.id.but1);
-        button2 = (Button) findViewById(R.id.but2);
         editText1 = (EditText) findViewById(R.id.edt1);
         editText2 = (EditText) findViewById(R.id.edt2);
-        //makeNewList();
         checkEnableGPS();
         ArrayAdapter<String> planeAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, planeNamesArray);
         PLANES.add(new MyPlane("Plane_1", "+79139371678",
-                new GeoLocation( 82.0, 55.0, 127.0)));
+                new GeoLocation( 55.0, 82.0, 127.0)));//тестовае данные
         PLANES.add(new MyPlane("Plane_2", "+1312354312",
-                new GeoLocation( 50.0, 50.0, 50.0)));
+                new GeoLocation( 50.0, 50.0, 50.0)));//тоже
         //planeAdapter.getItem(0);
         setListAdapter(planeAdapter);
         Intent intent = new Intent(this, SmsService.class);
         registerReceiver(receiver, new IntentFilter(SmsService.CHANNEL));
-
-        //startService(intent);
 
         sConn = new ServiceConnection() {
             public void onServiceConnected(ComponentName name, IBinder binder) {
@@ -74,28 +68,6 @@ public class MainActivity extends ListActivity {
         bindService(intent, sConn, BIND_AUTO_CREATE);
     }
 
-/*public List<MyPlane> makeNewList(){
-    File internalStorageDir = getFilesDir();//проблема записи в файл!
-    try {
-
-        File file = new File(  "res/dataFileGeolocation");
-        //Toast.makeText(this, internalStorageDir.toString(), Toast.LENGTH_LONG).show();
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNext()) {
-            String line = scanner.nextLine();
-            String[] arr = line.split(" ");
-            MyPlane plane = new MyPlane(arr[0], arr[1], new GeoLocation( Double.valueOf(arr[2]),
-                    Double.valueOf(arr[3]), Double.valueOf(arr[4])));
-            PLANES.add(plane);
-        }
-        scanner.close();
-        return PLANES;
-    } catch (FileNotFoundException e) {
-        Toast.makeText(this, "Что то пошло не так: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        return PLANES;
-    }
-
-}*/
 
     private void checkEnableGPS() {
         String provider = Settings.Secure.getString(getContentResolver(),
@@ -115,7 +87,7 @@ public class MainActivity extends ListActivity {
         Intent intent = new Intent(MainActivity.this, MapActivity.class);
         intent.putExtra(PLANE_NAME, position);//передаем позицию выбранного обьекта в массиве
         //intent.putExtra(PLANE, (Parcelable) PLANES.get(position));
-        Toast.makeText(this, "Выбранная позиция: " + position + 1, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Выбранная позиция: " + (position+1), Toast.LENGTH_LONG).show();
         startActivity(intent);
     }
 
@@ -144,13 +116,7 @@ public class MainActivity extends ListActivity {
     }//добавление обьекта на главные экран списка(Button Add)
 
     public void RemoveArrayObject(View view){
-
+        //PLANES.remove(editText1.getText().toString());
     }//удаление обьекта со списка(Button Remove)
 
-
-    public void Synchronize(Double[] doubles){
-        //Intent intent = new Intent();
-        //intent.getStringExtra("com.example.borodin.tracker_android.broadcast.Message");//для приема данных из сервиса смc
-
-    }
 }

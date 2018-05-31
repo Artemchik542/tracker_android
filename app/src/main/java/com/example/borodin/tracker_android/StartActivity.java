@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -41,8 +42,8 @@ Button button1, button2, button3;
         button3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Обработка нажатия
-                Intent intent = new Intent(StartActivity.this,AboutActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(StartActivity.this, AboutActivity.class);
+                startActivity(intent1);
             }
         });
 
@@ -52,7 +53,6 @@ Button button1, button2, button3;
                 Toast.makeText(StartActivity.this, "Нажмите ещё раз для выхода из приложения",
                         Toast.LENGTH_SHORT).show();
                 onDestroy();
-
             }
         });
     }

@@ -43,7 +43,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         LatLng plane1 = new LatLng(PLANES.get(num).geoLocations.get(num).latitude,
                 PLANES.get(num).geoLocations.get(0).longitude);//создание объекта для отрисовки
-        mMap.addMarker(new MarkerOptions().position(plane1).title(PLANES.get(num).name));//добавление маркера на карте
+        mMap.addMarker(new MarkerOptions().position(plane1).title(PLANES.get(num).name +" H:"+ PLANES.get(num).geoLocations.get(0).height));//добавление маркера на карте
         mMap.moveCamera(CameraUpdateFactory.newLatLng(plane1));
     }
 

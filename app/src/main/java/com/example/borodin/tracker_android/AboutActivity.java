@@ -6,14 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 public class AboutActivity extends AppCompatActivity{
-    TextView textView;
 
-    public static String about = " всв";
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_activity);
-        textView = (TextView)findViewById(R.id.text2);
-        textView.setText(about);
     }
 }

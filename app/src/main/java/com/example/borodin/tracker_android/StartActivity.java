@@ -29,20 +29,12 @@ Button button1, button2, button3;
         button1 = (Button) findViewById(R.id.btn1);
         button2 = (Button) findViewById(R.id.btn2);
         button3 = (Button) findViewById(R.id.btn3);
+
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Обработка нажатия
                 Intent intent = new Intent(StartActivity.this, MainActivity.class);
                 startActivity(intent);
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Обработка нажатия
-                Toast.makeText(StartActivity.this, "Нажмите ещё раз для выхода из приложения", Toast.LENGTH_SHORT).show();
-                onDestroy();
-
             }
         });
 
@@ -53,6 +45,15 @@ Button button1, button2, button3;
                 startActivity(intent);
             }
         });
-    }
 
+        button2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Обработка нажатия
+                Toast.makeText(StartActivity.this, "Нажмите ещё раз для выхода из приложения",
+                        Toast.LENGTH_SHORT).show();
+                onDestroy();
+
+            }
+        });
+    }
 }

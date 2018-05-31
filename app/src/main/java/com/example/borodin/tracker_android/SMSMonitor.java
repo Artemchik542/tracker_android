@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
 
+import static com.example.borodin.tracker_android.SmsService.INCOMPARCE1;
+import static com.example.borodin.tracker_android.SmsService.INCOMPARCE2;
+
 public class SMSMonitor extends BroadcastReceiver {
     private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
 
@@ -24,8 +27,8 @@ public class SMSMonitor extends BroadcastReceiver {
             }
             String body = bodyText.toString();
             Intent mIntent = new Intent(context, SmsService.class);
-            mIntent.putExtra("sms_body", incomingNumber);
-            mIntent.putExtra("sms_body", body);
+            mIntent.putExtra(INCOMPARCE1, incomingNumber);//передача номера
+            mIntent.putExtra(INCOMPARCE2, body);//и содержимого смс собщения в SmsService
             context.startService(mIntent);
             abortBroadcast();
         }

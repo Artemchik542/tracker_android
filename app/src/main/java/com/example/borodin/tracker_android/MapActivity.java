@@ -25,10 +25,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     private GoogleMap mMap;
     private int num;
-    static double Lat = 56.43433434;
-    static double Lot = 82.34343434;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,32 +34,16 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        num = getIntent().getIntExtra(PLANE_NAME, 0);
-
-
-
-
+        num = getIntent().getIntExtra(PLANE_NAME, 0);//получение позиции аппарата из списка
     }
 
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        mMap = googleMap;//создаие катры
 
-        // Add a marker in Sydney and move the camera
-
-        LatLng plane1 = new LatLng(PLANES.get(num).geoLocations.get(num).latitude, PLANES.get(num).geoLocations.get(0).longitude);
-        mMap.addMarker(new MarkerOptions().position(plane1).title(PLANES.get(num).name));
+        LatLng plane1 = new LatLng(PLANES.get(num).geoLocations.get(num).latitude,
+                PLANES.get(num).geoLocations.get(0).longitude);//создание объекта для отрисовки
+        mMap.addMarker(new MarkerOptions().position(plane1).title(PLANES.get(num).name));//добавление маркера на карте
         mMap.moveCamera(CameraUpdateFactory.newLatLng(plane1));
     }
 

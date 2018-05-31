@@ -8,7 +8,7 @@ import android.widget.TextView;
 public class AboutActivity extends AppCompatActivity{
     TextView textView;
 
-    String about = " ";
+    public static String about = " всв";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

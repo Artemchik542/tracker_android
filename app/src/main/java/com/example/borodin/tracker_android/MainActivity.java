@@ -2,9 +2,12 @@ package com.example.borodin.tracker_android;
 
 import android.app.ListActivity;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.provider.Settings;
 import android.os.Bundle;
 import android.view.View;
@@ -32,10 +35,8 @@ public class MainActivity extends ListActivity {
     public static String PLANE = "PLANE";
     final static String FILE_NAME = "dataFileGeolocation";
     public static final String INFO = "INFO";
-
-
-
-
+    ServiceConnection sConn;
+    boolean bound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +47,34 @@ public class MainActivity extends ListActivity {
         button2 = (Button) findViewById(R.id.but2);
         editText1 = (EditText) findViewById(R.id.edt1);
         editText2 = (EditText) findViewById(R.id.edt2);
-        makeNewList();
+        //makeNewList();
         checkEnableGPS();
-        ArrayAdapter<String> planeAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, planeNamesArray);
-        PLANES.add(new MyPlane("Plane_1", "+1312312312", new GeoLocation( 0.0, 0.0, 0.0)));
-        PLANES.add(new MyPlane("Plane_2", "+1312354312", new GeoLocation( 50.0, 50.0, 50.0)));
+        ArrayAdapter<String> planeAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, planeNamesArray);
+        PLANES.add(new MyPlane("Plane_1", "+79139371678",
+                new GeoLocation( 82.0, 55.0, 127.0)));
+        PLANES.add(new MyPlane("Plane_2", "+1312354312",
+                new GeoLocation( 50.0, 50.0, 50.0)));
         //planeAdapter.getItem(0);
         setListAdapter(planeAdapter);
         Intent intent = new Intent(this, SmsService.class);
         registerReceiver(receiver, new IntentFilter(SmsService.CHANNEL));
-        startService(intent);
+
+        //startService(intent);
+
+        sConn = new ServiceConnection() {
+            public void onServiceConnected(ComponentName name, IBinder binder) {
+                bound = true;
+            }
+
+            public void onServiceDisconnected(ComponentName name) {
+                bound = false;
+            }
+        };
+        bindService(intent, sConn, BIND_AUTO_CREATE);
     }
 
-
-public List<MyPlane> makeNewList(){
+/*public List<MyPlane> makeNewList(){
     File internalStorageDir = getFilesDir();//проблема записи в файл!
     try {
 
@@ -69,7 +84,8 @@ public List<MyPlane> makeNewList(){
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
             String[] arr = line.split(" ");
-            MyPlane plane = new MyPlane(arr[0], arr[1], new GeoLocation( Double.valueOf(arr[2]), Double.valueOf(arr[3]), Double.valueOf(arr[4])));
+            MyPlane plane = new MyPlane(arr[0], arr[1], new GeoLocation( Double.valueOf(arr[2]),
+                    Double.valueOf(arr[3]), Double.valueOf(arr[4])));
             PLANES.add(plane);
         }
         scanner.close();
@@ -79,7 +95,8 @@ public List<MyPlane> makeNewList(){
         return PLANES;
     }
 
-}
+}*/
+
     private void checkEnableGPS() {
         String provider = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
@@ -90,8 +107,6 @@ public List<MyPlane> makeNewList(){
         }
     }
 
-
-
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {// слушатель нажатий в списке
         super.onListItemClick(l, v, position, id);
@@ -100,34 +115,32 @@ public List<MyPlane> makeNewList(){
         Intent intent = new Intent(MainActivity.this, MapActivity.class);
         intent.putExtra(PLANE_NAME, position);//передаем позицию выбранного обьекта в массиве
         //intent.putExtra(PLANE, (Parcelable) PLANES.get(position));
-        Toast.makeText(this, "Выбранная позиция: " + position, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Выбранная позиция: " + position + 1, Toast.LENGTH_LONG).show();
         startActivity(intent);
     }
-
-
 
     protected BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            String number = new String(intent.getStringExtra(SmsService.INFO));
-            String body = new String(intent.getStringExtra(SmsService.INFO));
-            String[] arr1 = body.split(" ");
+            String number = new String(intent.getStringExtra(SmsService.INFO));//получаем номер смс сообщения
+            String body = new String(intent.getStringExtra(SmsService.INFO));//и содержимое смс
+            String[] arr1 = body.split(" ");//разделяем содержимое
 
             for (int i = 0; i < PLANES.size(); i++) {
                 if (number.equals(PLANES.get(i).phone)){
-                    PLANES.get(i).geoLocations.add(0, new GeoLocation( Double.valueOf(arr1[0]), Double.valueOf(arr1[1]), Double.valueOf(arr1[2])));
+                    PLANES.get(i).geoLocations.add(0, new GeoLocation( Double.valueOf(arr1[0]),
+                            Double.valueOf(arr1[1]), Double.valueOf(arr1[2])));//добавляем\заменяем положение обьекта
                     break;
                 }
             }
         }
     };
 
-
-
     public void AddArrayObject(View view){
 
-        PLANES.add(new MyPlane(editText1.getText().toString(), editText2.getText().toString(), new GeoLocation( Double.valueOf(0), Double.valueOf(0), Double.valueOf(0))));//добавить самолет в список
+        PLANES.add(new MyPlane(editText1.getText().toString(), editText2.getText().toString(),
+                new GeoLocation( Double.valueOf(0), Double.valueOf(0), Double.valueOf(0))));//добавить самолет в список
     }//добавление обьекта на главные экран списка(Button Add)
 
     public void RemoveArrayObject(View view){
@@ -135,10 +148,9 @@ public List<MyPlane> makeNewList(){
     }//удаление обьекта со списка(Button Remove)
 
 
-
     public void Synchronize(Double[] doubles){
         //Intent intent = new Intent();
         //intent.getStringExtra("com.example.borodin.tracker_android.broadcast.Message");//для приема данных из сервиса смc
 
-    }// синхронизация данных
+    }
 }

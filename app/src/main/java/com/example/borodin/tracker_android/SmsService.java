@@ -18,7 +18,8 @@ public class SmsService extends Service {
     //public static final String WHERE_MY_CAT_ACTION = "com.example.borodin.tracker_android.action.CAT";
     public static final String INFO = "INFO";
     public static final String CHANNEL = "SMS_SERVICE";
-    public static final String INCOMPARCE = "sms_body";
+    public static final String INCOMPARCE1 = "sms_num";
+    public static final String INCOMPARCE2 = "sms_body";
     @Override
     public void onCreate() {
         // сообщение о создании службы
@@ -32,8 +33,8 @@ public class SmsService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        String number = intent.getExtras().getString(INCOMPARCE);//передали пришедшие значения в локальные переманные
-        String sms_body = intent.getExtras().getString(INCOMPARCE);//тоже
+        String number = intent.getExtras().getString(INCOMPARCE1);//передали пришедшие значения в локальные переманные
+        String sms_body = intent.getExtras().getString(INCOMPARCE2);//тоже
 
         Intent intent1 = new Intent(CHANNEL);// интент для отправки ответа
         intent1.putExtra(INFO,number);// добавляем в интент данные
